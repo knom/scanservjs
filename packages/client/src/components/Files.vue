@@ -52,7 +52,7 @@
       <v-icon @click="open(item)" class="mr-2">
         mdi-download
       </v-icon>
-      <v-icon @click="fileExtract(item)" class="mr-2">
+      <v-icon v-if="item.name.endsWith(".pdf")" @click="fileExtract(item)" class="mr-2">
         mdi-package
       </v-icon>
       <v-icon @click="fileRename(item)" class="mr-2">

@@ -128,7 +128,7 @@ class FileInfo {
   }
 
   extract(destination) {
-    Util.unzip(this.filename, destination);
+    Util.unzip(this.fullname, destination);
   }
 
   /**
