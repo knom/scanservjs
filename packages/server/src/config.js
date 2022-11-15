@@ -14,7 +14,7 @@ class Config {
   init() {
     Object.assign(this, {
       version: Package.version,
-      port: 8080,
+      port: 8081,
       host: '::',
       timeout: 120000,
       devices: [],

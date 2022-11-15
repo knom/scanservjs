@@ -2,8 +2,7 @@ const Config = require('./config');
 const fs = require('fs');
 const mv = require('mv');
 const path = require('path');
-
-
+const Util = require('./util');
 
 /**
  * @param {number} size
@@ -77,13 +76,13 @@ class FileInfo {
       if (fullpath.indexOf('../') !== -1) {
         throw new Error('Parent paths disallowed');
       }
-    
+
       if (fullpath.indexOf('/') === 0) {
         throw new Error('Root paths disallowed');
-      }  
+      }
     }
   }
-  
+
   /**
    * @param {string} fullpath 
    */
@@ -98,7 +97,7 @@ class FileInfo {
   static unsafe(fullpath, filename) {
     return new FileInfo(fullpath, filename);
   }
-  
+
   /**
    * @returns {FileInfo}
    */
@@ -126,6 +125,10 @@ class FileInfo {
    */
   exists() {
     return fs.existsSync(this.fullname);
+  }
+
+  extract(destination) {
+    Util.unzip(this.filename, destination);
   }
 
   /**

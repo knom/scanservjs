@@ -66,7 +66,7 @@ function initialize(rootPath) {
       allowUnsafePaths: true
     });
   }
-  
+
   try {
     fs.mkdirSync(Config.outputDirectory, { recursive: true });
     fs.mkdirSync(Config.tempDirectory, { recursive: true });
@@ -161,6 +161,23 @@ function configure(app, rootPath) {
       await FileInfo.unsafe(Config.outputDirectory, name)
         .move(`${Config.outputDirectory}/${newName}`);
       res.send('200');
+    } catch (error) {
+      sendError(res, 500, error);
+    }
+  });
+
+  app.post(/\/files\/([^/]+)\/extract/, async (req, res) => {
+    logRequest(req);
+    try {
+      const name = req.params[0];
+      log.info("output dir:" + Config.outputDirectory);
+
+      FileInfo.unsafe(Config.outputDirectory, name).extract(Config.outputDirectory);
+
+      res.send('200');
+      // const buffer = await Api.readThumbnail(name);
+      // res.type('jpg');
+      // res.send(buffer);
     } catch (error) {
       sendError(res, 500, error);
     }

@@ -43,6 +43,16 @@ const Util = {
   },
 
   /**
+   * @param {string} filepath
+   * @param {string} destination
+   * @returns {void}
+   */
+  unzip(filepath, destination) {
+    const zip = new AdmZip(filepath);
+    zip.extractAllTo(destination);
+  },
+
+  /**
    * @param {FileInfo[]} files
    * @param {boolean} standard
    * @returns {FileInfo[]} 

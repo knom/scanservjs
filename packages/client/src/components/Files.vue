@@ -52,6 +52,9 @@
       <v-icon @click="open(item)" class="mr-2">
         mdi-download
       </v-icon>
+      <v-icon @click="fileExtract(item)" class="mr-2">
+        mdi-package
+      </v-icon>
       <v-icon @click="fileRename(item)" class="mr-2">
         mdi-pencil
       </v-icon>
@@ -174,6 +177,26 @@ export default {
       this.editedItem = Object.assign({}, file);
       this.editedItem.newName = this.editedItem.name;
       this.dialogEdit = true;
+    },
+
+    fileExtract(file) {
+      // this.editedIndex = this.files.indexOf(file);
+      // this.editedItem = Object.assign({}, file);
+      // this.editedItem.newName = this.editedItem.name;
+      // this.dialogEdit = true;
+
+      this.$emit('mask', 1);
+      Common.fetch(`files/${file.name}/extract`, {
+        method: 'POST'
+      }).then(data => {
+        // this.$emit('notify', {type: 'i', message: `${this.$t('files.message:deleted', [data.name])}`});
+        // this.fileList();
+        this.$emit('mask', -1);
+      }).catch(error => {
+        // this.$emit('notify', {type: 'e', message: error});
+        this.$emit('mask', -1);
+      });
+   
     },
 
     renameFileConfirm() {
